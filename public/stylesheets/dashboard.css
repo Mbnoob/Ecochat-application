@@ -1,0 +1,547 @@
+@import url('https://fonts.googleapis.com/css2?family=Istok+Web&display=swap');
+
+*{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    font-family: 'poppins', sans-serif;
+}
+
+body{
+    height: 100vh;
+    background: #FFF;
+    &::-webkit-scrollbar {
+        width: 10px;
+    }
+    &::-webkit-scrollbar-thumb{
+        background-color: #b8b9c3;
+        border-radius: 10px;
+    }
+    &::-webkit-scrollbar-track{
+        background-color: transparent;
+    }
+}
+
+.main{
+    background: #53C58A;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.nav-button{
+    outline: none;
+    background-color: transparent;
+    border: none;
+}
+
+.nav-button:hover{
+   background-color: white;
+}
+
+.logout-btn{
+    width: 90px;
+    height: 40px;
+    background: #F26E56;
+    border-radius: 5px;
+    border: 2px solid #000;
+    outline: none;
+    padding: 5px;
+    color: #FFF;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all .2s ease-in-out;
+}
+
+.logout-btn:hover{
+    background-color: rgb(91, 91, 91);
+}
+
+.main .right-container{
+    width: 100%;
+    height: 82%;
+    background-color: transparent;
+    float: right;
+    overflow: hidden;
+    transition: all .2s ease-in-out;
+}
+
+.main .right-container .home-images{
+    width: 100vw;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.main .right-container .home-images img{
+    width: 70%;
+}
+
+.home-images p{
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.main .right-container .container-first{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: transparent;
+    padding-top: 10px;
+}
+
+.main .right-container .cintainer-main{
+    height: 87%;
+    width: 100%;
+    background-color: transparent;
+    border-radius: 50px;
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+        width: 10px;
+    }
+    &::-webkit-scrollbar-thumb{
+        background-color: #6b7997;
+        border-radius: 10px;
+    }
+    &::-webkit-scrollbar-track{
+        background-color: transparent;
+    }
+
+}
+
+.main .right-container .left-chat{
+    background-color: #F4F2F2;
+    margin: 20px 77px;
+    min-height: 20%;
+    padding: 0px 14px 14px;
+    width: 41%;
+    border-radius: 0px 20px 20px 20px;
+    color: #3a4967;
+}
+
+.main .habburger-menu-controller{
+    position: absolute;
+    left: 25px;
+}
+
+#submitForms{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.main .habburger-menu-controller button{
+    font-size: 18px;
+    border-radius: 30px;
+    color: #D9D9D9;
+    padding: 6px;
+}
+
+.main .habburger-menu-controller button i{
+    display: flex;
+}
+
+.userAdd-notify{
+    min-width: 50%;
+    padding: 2px;
+    background: #fff500;
+    margin: auto;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    color: #363636;
+}
+
+.main .right-container .left-chatbox{
+    float: left;
+    border: 2px solid #000;
+    background: #F26E56;
+    margin: 20px 10px;
+    padding: 0px 12px 6px;
+    border-radius: 0px 20px 20px 20px;
+    color: #ffffff;
+    overflow: hidden;
+}
+
+.left-chatbox h4{
+    font-size: 10px;
+    margin-bottom: 0;
+    margin-top: 10px;
+    color: #464646;
+    font-weight: bolder;
+    text-decoration: underline;
+    font-style: italic;
+}
+
+.left-chatbox p{
+    color: #ffcdb2;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 700;
+    margin-bottom: 0;
+    text-align: left;
+    padding-top: 3px;
+}
+
+.right-chatbox h4{
+    font-size: 10px;
+    margin-bottom: 0;
+    margin-top: 10px;
+    color: #464646;
+    font-weight: bolder;
+    text-decoration: underline;
+    font-style: italic;
+}
+
+.right-chatbox p{
+    color: #4F5F8D;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 700;
+    margin-bottom: 0;
+    text-align: right;
+    padding-top: 3px;
+}
+
+.main .right-container .right-chatbox{
+    float: right;
+    margin: 20px 10px;
+    padding: 0px 12px 6px;
+    box-shadow: -10px 12px 30px 5px rgba(0, 0, 0, 0.20);
+    border: 2px solid #000;
+    background: #FEC347;
+    border-radius: 20px 0px 20px 20px;
+    color: #ffffff;
+    overflow: hidden;
+}
+
+.main .left-menu{
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: 70%;
+    height: 100%;
+    float: left;
+    position: absolute;
+    z-index: 100;
+    top: 0;
+    float: left;
+    overflow: auto;
+    border-radius: 0px 10px 10px 0px;
+    background: #4F5F8D;
+    transition: all 0.2s ease-in-out;
+}
+
+.main .left-menu .div1{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: transparent;
+}
+
+.main .left-menu .div1 .upper-controller{
+    display: flex;
+    width: 100%;
+    height: 10%;
+    position: sticky;
+    background-color: transparent;
+    border-bottom: 1px solid black;
+    align-items: center;
+    justify-content: flex-end;
+}
+.main .left-menu .div1 .upper-controller i{
+    font-size: 25px;
+    margin-right: 30px;
+    padding-top: 5px;
+    color: #4f6da7;
+}
+
+.div-input{
+    position: fixed;
+    left: 0px;
+    z-index: 10;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 12%;
+    background: transparent;
+    bottom: 0;
+}
+
+.div-input .input-secton{
+    display: flex;
+    align-items: center;
+    width: 95%;
+    height: 60%;
+    background: #D9D9D9;
+    border-radius: 20px;
+    gap: 10px;
+    line-height: normal;
+    border: 3px solid #000;
+    
+}
+
+.div-input input {  
+    padding: 0;
+    border: 0;
+    outline: 0;
+    width: 65%;
+    background-color: #D9D9D9;
+    position: relative;
+    left: 20px;
+  }
+
+  textarea::placeholder{
+    color: #817f7f;
+    font-weight: bold;
+  }
+
+  #submit{
+    width: 12%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    border-radius: 15px;
+  }
+
+.cintainer-main .div-input .input-secton button{
+    margin-right: 10px;
+    border-radius: 10px;
+}
+
+.cintainer-main .div-input .input-secton button i{
+   display: flex;
+ }
+
+.cintainer-main .joined-messages{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    padding-bottom: 10px;
+}
+
+.cintainer-main .joined-messages h6{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0px;
+    padding: 1px;
+    font-size: 13px;
+    margin: 0px 5px;
+}
+
+.cintainer-main .left-div{
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.cintainer-main .right-div{
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+#selcet-images{
+    width: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    border: none;
+    outline: none;
+}
+#selcet-images:hover{
+  background-color: #4e4e4e;
+}
+
+.cintainer-main .images-right{
+        display: flex;  
+        justify-content: flex-end;
+        padding-right: 40px;
+        padding-top: 10px;
+}
+
+.cintainer-main .images-right .images-user{
+    width: 22%;
+    background-color: #747474;
+    padding: 10px;
+    border-radius: 10px 0px 10px 10px;
+    box-shadow: -15px 24px 40px 5px rgba(0, 0, 0, 0.20)
+}
+
+.cintainer-main .images-left{
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 40px;
+    padding-bottom: 20px;
+}
+
+.cintainer-main .images-left .images-user2{
+    width: 22%;
+    background-color: #F4F2F2;
+    padding: 10px;
+    border-radius: 0px 10px 10px 10px;
+    box-shadow: 10px -15px 40px 5px rgba(0, 0, 0, 0.20);
+}
+
+.cintainer-main .images-left .images-user2 h6{
+    font-size: 17px;
+    font-weight: bold;
+    color: forestgreen;
+    text-decoration: underline;
+    font-style: italic;   
+}
+
+.cintainer-main .images-left .images-user2 p{
+    float: right;
+    font-size: 10px;
+    font-weight: bold;
+    color: #818181;
+    margin-bottom: 0;
+    margin-top: 3px;
+}
+
+.cintainer-main img{
+    width: -webkit-fill-available;
+}
+
+.cintainer-main .images-right .images-user h6{
+    text-align: right;
+    font-size: 17px;
+    font-weight: bold;
+    color: #BCBCBC;
+    text-decoration: underline;
+    font-style: italic;
+}
+
+.cintainer-main .images-right .images-user p{
+    float: right;
+    font-size: 10px;
+    font-weight: bold;
+    color: #BCBCBC;
+    margin-bottom: 0;
+    margin-top: 3px;
+}
+
+.Allusers{
+    width: 100%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: auto;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.Allusers .user1{
+        width: 90%;
+        margin-top: 10px;
+        border-radius: 10px;
+        border: 2px solid #000;
+        background: #D9D9D9;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 10%;
+        gap: 10px;
+        padding-right: 10px;
+        overflow: hidden;
+}
+
+.Allusers .user1 .images-profile{
+    margin-left: 10px;
+    display: flex;
+}
+
+.Allusers .user1 img{
+    width: 40px;
+    height: 40px;
+    border-radius: 30px; 
+}
+
+.user-names h3{
+    color: #000;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: uppercase;
+    margin-bottom: 0;
+}
+
+.user-names h4{
+    color: #464646;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: bolder;
+    line-height: normal;
+    text-transform: capitalize;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.user-names{
+    text-align: center;
+}
+
+#emoji-btn{
+    position: relative;
+    left: 13px;
+    border: none;
+    outline: none;
+    background: transparent;
+}
+
+#emoji-btn:hover{
+    background-color: #4e4e4e;
+}
+
+.profile-ownername h2{
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 0;
+    text-align: center;
+    color: #4F5F8D;
+}
+
+.Allusers .user1:hover{
+    background-color: #53c2c5;
+}
+
+.Allusers .active{
+    background-color: #f296a6;
+}
+
+.main .active-user-name{
+    width: 100vw;
+    overflow: hidden;
+    background-color: #4e4e4e;
+    padding: 5px;
+    border-bottom: 2px solid black;
+}
+
+.main .active-user-name h6{
+    margin-bottom: 0;
+    position: relative;
+    left: 50px;
+    color: #4780ba;
+    font-weight: bold;
+    letter-spacing: 1px;
+}

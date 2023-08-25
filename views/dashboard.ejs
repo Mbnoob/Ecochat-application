@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecoweb Chat Application</title>
+
+    <link rel="shortcut icon" href="/src/ecochat.png" type="image/x-icon">
+    <link rel="stylesheet" href="/stylesheets/dashboard.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+</head>
+<body>
+    <div class="main">
+      <nav class="navbar navbar-light">
+        <button class="nav-button" id="habburger-menu-controller" type="button"><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g id="Nav menu">
+            <circle id="Ellipse 1" cx="17.5" cy="17.5" r="17.5" fill="white"/>
+            <g id="Group 1">
+            <path id="Line 1" d="M20.6411 11.6667L26.0257 11.6667" stroke="#F26E56" stroke-width="3" stroke-linecap="round"/>
+            <path id="Line 3" d="M9.87177 22.4359L15.2564 22.4359" stroke="#F26E56" stroke-width="3" stroke-linecap="round"/>
+            <path id="Line 2" d="M9.87177 17.0513L26.0256 17.0513" stroke="#F26E56" stroke-width="3" stroke-linecap="round"/>
+            </g>
+            </g>
+            </svg></button>
+            <div class="profile-ownername">
+              <h2><span class="font-italic" style="color: black;">Hii,</span> <%= currentUser.fullName %></h2>
+            </div>
+            <form action="/logout" method="get" id="logout-submit">
+        <button class="logout-btn" id="logout-btn" type="button">LOGOUT</button>
+      </form>
+      </nav>
+
+          <div class="right-container">
+            <div class="home-images">
+              <p><span style="color: #FEC347;">Click</span>, to start chatting</p>
+              <img src="/src/Chat-cuate1.png" alt="home-images" style="transform: translateY(460px);">
+            </div>
+
+            <div class="container-first" style="display: none;">
+              <div class="active-user-name" style="display: none;">
+                
+              </div>
+            <div class="cintainer-main"></div>
+
+            <div class="div-input" style="display: none;">
+              <div class="input-secton" style="transform: translateY(100px);">
+              <form id="submitForms" autocomplete="off">
+                <button type="button" id="emoji-btn"><svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 18 18" fill="none">
+                  <path d="M9.00002 0.666626C13.6025 0.666626 17.3334 4.39746 17.3334 8.99996C17.3334 13.6025 13.6025 17.3333 9.00002 17.3333C4.39752 17.3333 0.666687 13.6025 0.666687 8.99996C0.666687 4.39746 4.39752 0.666626 9.00002 0.666626ZM9.00002 2.33329C7.23191 2.33329 5.53622 3.03567 4.28598 4.28591C3.03573 5.53616 2.33335 7.23185 2.33335 8.99996C2.33335 10.7681 3.03573 12.4638 4.28598 13.714C5.53622 14.9642 7.23191 15.6666 9.00002 15.6666C10.7681 15.6666 12.4638 14.9642 13.7141 13.714C14.9643 12.4638 15.6667 10.7681 15.6667 8.99996C15.6667 7.23185 14.9643 5.53616 13.7141 4.28591C12.4638 3.03567 10.7681 2.33329 9.00002 2.33329ZM11.3334 10.5475C11.4111 10.469 11.5037 10.4068 11.6057 10.3645C11.7077 10.3221 11.817 10.3005 11.9275 10.3008C12.0379 10.3011 12.1472 10.3234 12.249 10.3663C12.3507 10.4092 12.4429 10.4719 12.5202 10.5507C12.5976 10.6296 12.6584 10.723 12.6993 10.8256C12.7402 10.9282 12.7603 11.0379 12.7584 11.1483C12.7565 11.2587 12.7327 11.3677 12.6883 11.4688C12.644 11.57 12.58 11.6613 12.5 11.7375C11.5662 12.6548 10.309 13.1681 9.00002 13.1666C7.69099 13.1681 6.43388 12.6548 5.50002 11.7375C5.34588 11.582 5.25913 11.372 5.25852 11.1531C5.25792 10.9341 5.34351 10.7237 5.49679 10.5674C5.65007 10.4111 5.85873 10.3213 6.07765 10.3176C6.29657 10.3138 6.50817 10.3964 6.66669 10.5475C7.28904 11.1593 8.12728 11.5015 9.00002 11.5C9.90835 11.5 10.7309 11.1375 11.3334 10.5475ZM6.08335 5.66663C6.41487 5.66663 6.73282 5.79832 6.96724 6.03274C7.20166 6.26716 7.33335 6.58511 7.33335 6.91663C7.33335 7.24815 7.20166 7.56609 6.96724 7.80051C6.73282 8.03493 6.41487 8.16663 6.08335 8.16663C5.75183 8.16663 5.43389 8.03493 5.19947 7.80051C4.96505 7.56609 4.83335 7.24815 4.83335 6.91663C4.83335 6.58511 4.96505 6.26716 5.19947 6.03274C5.43389 5.79832 5.75183 5.66663 6.08335 5.66663ZM11.9167 5.66663C12.2482 5.66663 12.5661 5.79832 12.8006 6.03274C13.035 6.26716 13.1667 6.58511 13.1667 6.91663C13.1667 7.24815 13.035 7.56609 12.8006 7.80051C12.5661 8.03493 12.2482 8.16663 11.9167 8.16663C11.5852 8.16663 11.2672 8.03493 11.0328 7.80051C10.7984 7.56609 10.6667 7.24815 10.6667 6.91663C10.6667 6.58511 10.7984 6.26716 11.0328 6.03274C11.2672 5.79832 11.5852 5.66663 11.9167 5.66663Z" fill="#888888"/>
+                </svg></button>
+                <input placeholder="Send a message" id="input-messages">
+                <input type="file" name="Images" id="imagesShare" style="display: none;">
+                <button type="button" id="selcet-images"><i class="bi bi-link-45deg" style="font-size: 25px; color: #817F7F;;"></i></button>
+                <button type="submit" class="btn" id="submit" disabled><svg id="svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(150, 150, 150, 1);"><path d="m21.426 11.095-17-8A.999.999 0 0 0 3.03 4.242L4.969 12 3.03 19.758a.998.998 0 0 0 1.396 1.147l17-8a1 1 0 0 0 0-1.81zM5.481 18.197l.839-3.357L12 12 6.32 9.16l-.839-3.357L18.651 12l-13.17 6.197z"></path></svg></button>
+              
+              </form>
+              </div>
+            </div>
+          </div>
+
+
+          </div>
+
+        <div class="left-menu" style="display: none;">
+
+            <div class="div1">
+              <div class="upper-controller">
+                <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 35 35" fill="none" style="margin-right: 20px;">
+                  <circle cx="17.5" cy="17.5" r="17.5" fill="white"/>
+                  <path d="M12.7571 24.136L23.1406 11.7614" stroke="#F26E56" stroke-width="3" stroke-linecap="round"/>
+                  <path d="M23.9866 23.9866L12.5641 12.5641" stroke="#F26E56" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+              </div>
+  
+              <div class="Allusers">
+                <% if (typeof user != undefined) { %>
+                  <% user.forEach((e) => { %>
+                    <div class="user1 " onclick="getId('<%= e._id %>', '<%= e.fullName %>')">
+                      <div class="images-profile">
+                        <img src="/src/user1.jpg" alt="">
+                      </div>
+                      <div class="user-names">
+                        <h3><%= e.fullName %></h3> 
+                        <% if (e.is_online == true) { %>
+                          <span style="position: absolute; left: 53px; top: 108px; display: block;" id="<%= e._id %>-dot"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 10 10" fill="none">
+                            <circle cx="5" cy="5" r="4.5" fill="#00FF7B" stroke="white"/>
+                          </svg></span>
+                          <h4 id="<%= e._id %>-status">Online</h4>
+                        <% } else { %>
+                          <span style="position: absolute; left: 53px; top: 108px; display: none;" id="<%= e._id %>-dot"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 10 10" fill="none">
+                            <circle cx="5" cy="5" r="4.5" fill="#00FF7B" stroke="white"/>
+                          </svg></span>
+                          <h4 id="<%= e._id %>-status"></h4>
+                        <% } %>
+                      </div>
+                      <div class="notify-dot">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="d-none" id="<%= e._id %>-notify" width="29" height="29" viewBox="0 0 36 36" fill="none">
+                          <g filter="url(#filter0_d_80_4)">
+                            <circle cx="18" cy="18" r="5" fill="#FEC347" shape-rendering="crispEdges"/>
+                            <circle cx="18" cy="18" r="5.5" stroke="white" stroke-opacity="0.1" shape-rendering="crispEdges"/>
+                          </g>
+                          <defs>
+                            <filter id="filter0_d_80_4" x="0" y="0" width="36" height="36" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                              <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                              <feMorphology radius="2" operator="dilate" in="SourceAlpha" result="effect1_dropShadow_80_4"/>
+                              <feOffset/>
+                              <feGaussianBlur stdDeviation="5"/>
+                              <feComposite in2="hardAlpha" operator="out"/>
+                              <feColorMatrix type="matrix" values="0 0 0 0 0.996078 0 0 0 0 0.764706 0 0 0 0 0.278431 0 0 0 0.8 0"/>
+                              <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_80_4"/>
+                              <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_80_4" result="shape"/>
+                            </filter>
+                          </defs>
+                        </svg>
+                      </div>
+                    </div>
+                  <% }); %>
+                <% } %>
+              </div>
+              
+            </div>
+          
+          
+        </div>
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+<script src="/javascripts/home.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+
+<script>
+  // Socket io ...........
+  const socket = io({ auth:{ token: '<%= currentUser._id %>', userName: '<%= currentUser.fullName %>' } });
+  let sender_id = '<%= currentUser._id %>';
+
+  function appnedFormessages(positionDiv, positionbox, recivedBy, messages, time) {
+  const outgoingmsg = document.createElement("div");
+  outgoingmsg.classList.add(positionDiv);
+
+  let secondoutMsg = document.createElement("div");
+  secondoutMsg.classList.add(positionbox);
+  secondoutMsg.innerText = messages;
+  secondoutMsg.insertAdjacentHTML("afterbegin", recivedBy);
+  secondoutMsg.insertAdjacentHTML("beforeend", time);
+
+  outgoingmsg.append(secondoutMsg);
+  cintainer_main.append(outgoingmsg);
+};
+
+  function getId(data, username){
+    let html = `<h6><span style="color: #BCBCBC;">to:</span>${username}</h6>`;
+    alluser.forEach((e)=>{
+      e.classList.remove('active');
+    });
+    event.currentTarget.classList.add('active');
+      titele.innerHTML = '';
+      $(message_container).show();
+      $(home_images).hide();
+      $(titele).show();
+      titele.insertAdjacentHTML('afterbegin', html);
+      titele.setAttribute('userId', data);
+      titele.setAttribute('username', username);
+      $(left_menue).hide();
+      $(inputDiv).show();
+      cintainer_main.innerHTML = '';
+      $(document).ready(function(){
+        anime({
+          targets: input_section,
+          translateY: 0,
+          easing:'easeInExpo'
+        });
+      });
+      socket.emit('fetch-messages', {data});
+      let notify = document.getElementById(data+'-notify');
+      notify.classList.add('d-none');
+};
+
+      socket.on('get_user_messagesAll', (data)=>{
+        if (data.length>0) {
+          data.forEach((e) => {
+            if (e.senderId === socket.id) {
+              appnedFormessages("right-div", "right-chatbox", "<h4>You: </h4>", e.messages, `<p>${e.time}</p>`)
+            }else{
+              appnedFormessages("left-div","left-chatbox",`<h4>${e.senderName}: </h4>`,e.messages, `<p>${e.time}</p>`)
+            }
+          });
+        }
+      })
+
+$(form).submit(function (event) {
+  event.preventDefault();
+
+          let messages = $('#input-messages').val().trim();
+          $('#input-messages').val('')
+          button.style.background = "transparent";
+          button.style.bordercolor = "red";
+          button.disabled = true;
+          document.getElementById("svg").style.fill = "#b5b8c2";
+          document.getElementById("svg").style.fill = "white";
+          appnedFormessages("right-div", "right-chatbox", "<h4>You: </h4>", messages, `<p>${exactTime}</p>`);
+          const name = titele.getAttribute('username');
+          const to  = titele.getAttribute('userId');
+          let payload = {
+            from: socket.id,
+            name,
+            to,
+            messages,
+            time: exactTime
+          }
+            socket.emit('send-messages-toserver', payload);
+    });
+
+        socket.on("send_messages-toUsers", ({from, messages, name, time}) => {
+          let reciver = titele.getAttribute('userId');
+          let notify = document.getElementById(from+'-notify');
+          if (reciver === null) { 
+            notify.classList.remove('d-none');
+          }else if (reciver === from){
+            appnedFormessages("left-div","left-chatbox",`<h4>${name}: </h4>`,messages, `<p>${time}</p>`);
+          }else{
+            notify.classList.remove('d-none');
+          }
+        });
+
+        socket.on('userJoined', (data)=>{
+          document.getElementById(`${data.user_id}-status`).innerText = 'Online';
+          document.getElementById(`${data.user_id}-dot`).style.display = 'block';
+        });
+
+        socket.on('userDdisconnected', (data)=>{
+          document.getElementById(`${data.user_id}-status`).innerText = '';
+          document.getElementById(`${data.user_id}-dot`).style.display = 'none';
+        })
+</script>
+</body>
+</html>
