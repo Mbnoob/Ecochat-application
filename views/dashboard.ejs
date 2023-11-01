@@ -5,16 +5,84 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ecoweb Chat Application</title>
 
-    <link rel="shortcut icon" href="/src/ecochat.png" type="image/x-icon">
+    <link rel="preload" as="script" href="/javascripts/preloader.js" fetchpriority="highest">
+    <link rel="preload" as="script" href="/javascripts/lottie.js" fetchpriority="highest">
+    <link rel="preload" as="style" href="/stylesheets/preLoader.css">
+    <link rel="shortcut icon" href="/src/ecochat.png" type="image/x-icon" fetchpriority="medium">
     <link rel="stylesheet" href="/stylesheets/dashboard.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <link rel="stylesheet" href="/stylesheets/preLoader.css" fetchpriority="highest">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+    
+    
 </head>
 <body>
+
+  <% let error_msg = [] %>
+  <% let success_msg = [] %>
+ 
+  <% if (sucess != null) { %>
+     <% success_msg.push(sucess) %>
+  <% } %>
+
+  <% if (errors != null) { %>
+    <% error_msg.push(errors) %>
+  <%  } %>
+
+  <div class="loader" id="preloader" fetchpriority='Highest'></div>
+
     <div class="main">
+
+      <!-- before send images-preview  -->
+      <div class="images-preview d-none">
+        <div class="reciver-name"><span style="font-size: 18px; color: #473753; font-weight: 800;">to:</span></div>
+        <div class="canvas-div" id="canvas-only"></div>
+        <div class="note-preview">
+          <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 13 13" fill="none">
+            <path d="M6.25 0C7.9076 0 9.49731 0.65848 10.6694 1.83058C11.8415 3.00268 12.5 4.5924 12.5 6.25C12.5 7.9076 11.8415 9.49731 10.6694 10.6694C9.49731 11.8415 7.9076 12.5 6.25 12.5C4.5924 12.5 3.00268 11.8415 1.83058 10.6694C0.65848 9.49731 0 7.9076 0 6.25C0 4.5924 0.65848 3.00268 1.83058 1.83058C3.00268 0.65848 4.5924 0 6.25 0ZM6.25 2.67857C6.13664 2.67847 6.02451 2.70202 5.92077 2.74771C5.81702 2.79339 5.72395 2.86021 5.64749 2.9439C5.57103 3.02759 5.51286 3.1263 5.4767 3.23374C5.44055 3.34117 5.4272 3.45497 5.4375 3.56786L5.76339 7.14464C5.77603 7.2649 5.83274 7.37621 5.9226 7.45712C6.01245 7.53803 6.12909 7.5828 6.25 7.5828C6.37091 7.5828 6.48755 7.53803 6.5774 7.45712C6.66726 7.37621 6.72397 7.2649 6.73661 7.14464L7.06161 3.56786C7.07191 3.45504 7.05858 3.34132 7.02247 3.23395C6.98637 3.12657 6.92828 3.0279 6.85192 2.94423C6.77555 2.86056 6.68259 2.79372 6.57895 2.74798C6.47532 2.70224 6.36328 2.6786 6.25 2.67857ZM6.25 9.82143C6.43944 9.82143 6.62112 9.74617 6.75508 9.61222C6.88903 9.47826 6.96429 9.29658 6.96429 9.10714C6.96429 8.9177 6.88903 8.73602 6.75508 8.60207C6.62112 8.46811 6.43944 8.39286 6.25 8.39286C6.06056 8.39286 5.87888 8.46811 5.74492 8.60207C5.61097 8.73602 5.53571 8.9177 5.53571 9.10714C5.53571 9.29658 5.61097 9.47826 5.74492 9.61222C5.87888 9.74617 6.06056 9.82143 6.25 9.82143Z" fill="#473753"/>
+          </svg>
+          <p>Note: Your image being compressed 20% of it's actual size.</p>
+        </div>
+        <div class="cavas-footer">
+          <button class="closed-preview" onclick="image_preview_close()" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20" fill="none">
+            <path d="M9.99999 1.66675C5.39166 1.66675 1.66666 5.39175 1.66666 10.0001C1.66666 14.6084 5.39166 18.3334 9.99999 18.3334C14.6083 18.3334 18.3333 14.6084 18.3333 10.0001C18.3333 5.39175 14.6083 1.66675 9.99999 1.66675ZM13.5833 13.5834C13.5062 13.6607 13.4147 13.722 13.3138 13.7638C13.213 13.8056 13.105 13.8271 12.9958 13.8271C12.8867 13.8271 12.7786 13.8056 12.6778 13.7638C12.577 13.722 12.4854 13.6607 12.4083 13.5834L9.99999 11.1751L7.59166 13.5834C7.43584 13.7392 7.22451 13.8268 7.00416 13.8268C6.7838 13.8268 6.57247 13.7392 6.41666 13.5834C6.26084 13.4276 6.17331 13.2163 6.17331 12.9959C6.17331 12.8868 6.1948 12.7788 6.23655 12.678C6.2783 12.5772 6.3395 12.4856 6.41666 12.4084L8.82499 10.0001L6.41666 7.59175C6.26084 7.43593 6.17331 7.2246 6.17331 7.00425C6.17331 6.78389 6.26084 6.57256 6.41666 6.41675C6.57247 6.26093 6.7838 6.1734 7.00416 6.1734C7.22451 6.1734 7.43584 6.26093 7.59166 6.41675L9.99999 8.82508L12.4083 6.41675C12.4855 6.3396 12.5771 6.2784 12.6779 6.23664C12.7787 6.19489 12.8867 6.1734 12.9958 6.1734C13.1049 6.1734 13.213 6.19489 13.3138 6.23664C13.4146 6.2784 13.5062 6.3396 13.5833 6.41675C13.6605 6.4939 13.7217 6.58549 13.7634 6.6863C13.8052 6.7871 13.8267 6.89514 13.8267 7.00425C13.8267 7.11336 13.8052 7.2214 13.7634 7.3222C13.7217 7.423 13.6605 7.5146 13.5833 7.59175L11.175 10.0001L13.5833 12.4084C13.9 12.7251 13.9 13.2584 13.5833 13.5834Z" fill="#F8F8F8"/>
+          </svg><span style="font-size: 14px; font-weight: 900;">Cancel</span></button>
+          <button class="send-preview-images" onclick="imageSendTouser()" type="button"><span style="font-size: 14px; font-weight: 900;">Send</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 22" fill="none">
+            <path d="M4.16666 10.909L3.66332 5.96627C3.51916 4.55173 4.85416 3.51263 6.03332 4.12264L15.9867 9.26627C17.2575 9.92264 17.2575 11.8954 15.9867 12.5517L6.03332 17.6954C4.85416 18.3045 3.51916 17.2663 3.66332 15.8517L4.16666 10.909ZM4.16666 10.909H9.99999" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg></button>
+        </div>
+      </div>
+
+      <!-- after send images preview -->
+      <div class="images-preview-after d-none">
+        <span class="close-button" onclick="closebtn()" style="position: fixed; bottom: 48px;"><svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 35 35" fill="none">
+          <circle cx="17.5" cy="17.5" r="17.5" fill="white"/>
+          <path d="M12.7571 24.136L23.1406 11.7614" stroke="#F26E56" stroke-width="3" stroke-linecap="round"/>
+          <path d="M23.9866 23.9866L12.5641 12.5641" stroke="#F26E56" stroke-width="3" stroke-linecap="round"/>
+        </svg></span>
+        <div class="canvas-div" id="canvas-after"></div>
+      </div>
+
+      <!-- reciver-images-preview -->
+      <div class="images-preview-reciver d-none">
+        <div class="canvas-div-reciver" id="canvas-0f-reciver"></div>
+        <div class="cavas-footer-reciver">
+          <button class="closed-preview" onclick="reciver_preview()" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20" fill="none">
+            <path d="M9.99999 1.66675C5.39166 1.66675 1.66666 5.39175 1.66666 10.0001C1.66666 14.6084 5.39166 18.3334 9.99999 18.3334C14.6083 18.3334 18.3333 14.6084 18.3333 10.0001C18.3333 5.39175 14.6083 1.66675 9.99999 1.66675ZM13.5833 13.5834C13.5062 13.6607 13.4147 13.722 13.3138 13.7638C13.213 13.8056 13.105 13.8271 12.9958 13.8271C12.8867 13.8271 12.7786 13.8056 12.6778 13.7638C12.577 13.722 12.4854 13.6607 12.4083 13.5834L9.99999 11.1751L7.59166 13.5834C7.43584 13.7392 7.22451 13.8268 7.00416 13.8268C6.7838 13.8268 6.57247 13.7392 6.41666 13.5834C6.26084 13.4276 6.17331 13.2163 6.17331 12.9959C6.17331 12.8868 6.1948 12.7788 6.23655 12.678C6.2783 12.5772 6.3395 12.4856 6.41666 12.4084L8.82499 10.0001L6.41666 7.59175C6.26084 7.43593 6.17331 7.2246 6.17331 7.00425C6.17331 6.78389 6.26084 6.57256 6.41666 6.41675C6.57247 6.26093 6.7838 6.1734 7.00416 6.1734C7.22451 6.1734 7.43584 6.26093 7.59166 6.41675L9.99999 8.82508L12.4083 6.41675C12.4855 6.3396 12.5771 6.2784 12.6779 6.23664C12.7787 6.19489 12.8867 6.1734 12.9958 6.1734C13.1049 6.1734 13.213 6.19489 13.3138 6.23664C13.4146 6.2784 13.5062 6.3396 13.5833 6.41675C13.6605 6.4939 13.7217 6.58549 13.7634 6.6863C13.8052 6.7871 13.8267 6.89514 13.8267 7.00425C13.8267 7.11336 13.8052 7.2214 13.7634 7.3222C13.7217 7.423 13.6605 7.5146 13.5833 7.59175L11.175 10.0001L13.5833 12.4084C13.9 12.7251 13.9 13.2584 13.5833 13.5834Z" fill="#F8F8F8"/>
+          </svg><span style="font-size: 14px; font-weight: 900;">Cancel</span></button>
+
+          <a href="" style="text-decoration: none;" id="reciver-download-button" download><button class="button-download" type="button"><span style="font-size: 14px; font-weight: 900;">Download</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20" fill="none">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M4.16663 13.5417C4.33239 13.5417 4.49136 13.6076 4.60857 13.7248C4.72578 13.842 4.79163 14.001 4.79163 14.1667V15.8334C4.79163 15.9484 4.88496 16.0417 4.99996 16.0417H15C15.0552 16.0417 15.1082 16.0198 15.1473 15.9807C15.1863 15.9417 15.2083 15.8887 15.2083 15.8334V14.1667C15.2083 14.001 15.2741 13.842 15.3914 13.7248C15.5086 13.6076 15.6675 13.5417 15.8333 13.5417C15.9991 13.5417 16.158 13.6076 16.2752 13.7248C16.3924 13.842 16.4583 14.001 16.4583 14.1667V15.8334C16.4583 16.2202 16.3046 16.5911 16.0312 16.8646C15.7577 17.1381 15.3867 17.2917 15 17.2917H4.99996C4.61319 17.2917 4.24225 17.1381 3.96876 16.8646C3.69527 16.5911 3.54163 16.2202 3.54163 15.8334V14.1667C3.54163 14.001 3.60747 13.842 3.72468 13.7248C3.84189 13.6076 4.00087 13.5417 4.16663 13.5417Z" fill="#F8F8F8"/>
+            <path d="M8.94838 3.125C8.74158 3.12506 8.54231 3.20262 8.38989 3.34239C8.23747 3.48216 8.14297 3.67398 8.12504 3.88C7.99681 5.34035 7.97397 6.80804 8.05671 8.27167C7.85088 8.2825 7.64588 8.29667 7.44004 8.31083L6.19838 8.40167C6.08902 8.40968 5.98362 8.44595 5.89249 8.50692C5.80136 8.56788 5.72762 8.65147 5.67848 8.74949C5.62935 8.84751 5.6065 8.95661 5.61218 9.06611C5.61786 9.17561 5.65187 9.28176 5.71088 9.37417C6.59578 10.7593 7.73604 11.9634 9.07088 12.9225L9.56838 13.28C9.69418 13.3703 9.84516 13.4189 10 13.4189C10.1549 13.4189 10.3059 13.3703 10.4317 13.28L10.9292 12.9225C12.264 11.9634 13.4043 10.7593 14.2892 9.37417C14.3482 9.28176 14.3822 9.17561 14.3879 9.06611C14.3936 8.95661 14.3707 8.84751 14.3216 8.74949C14.2725 8.65147 14.1987 8.56788 14.1076 8.50692C14.0165 8.44595 13.9111 8.40968 13.8017 8.40167L12.56 8.31083C12.3546 8.29598 12.149 8.28292 11.9434 8.27167C12.0264 6.80806 12.0038 5.34037 11.8759 3.88C11.8579 3.67383 11.7633 3.4819 11.6107 3.34211C11.4581 3.20232 11.2587 3.12485 11.0517 3.125H8.94838Z" fill="#F8F8F8"/>
+          </svg></button></a>
+        </div>
+      </div>
+
+<!-- ..............................0.......................... -->
       <nav class="navbar navbar-light">
-        <button class="nav-button" id="habburger-menu-controller" type="button"><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <button class="nav-button" id="habburger-menu-controller" type="button" data-toggle="tooltip" data-placement="right" title="To open 'shift+N'"><svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g id="Nav menu">
             <circle id="Ellipse 1" cx="17.5" cy="17.5" r="17.5" fill="white"/>
             <g id="Group 1">
@@ -34,28 +102,27 @@
 
           <div class="right-container">
             <div class="home-images">
-              <p><span style="color: #FEC347;">Click</span>, to start chatting</p>
-              <img src="/src/Chat-cuate1.png" alt="home-images" style="transform: translateY(460px);">
+              <p><span style="color: #ffc100;">Click</span>, to start chatting</p>
+              <img src="/src/Chat-cuate1.png" alt="home-images" id="home-svg" style="transform: translateY(460px);">
             </div>
 
             <div class="container-first" style="display: none;">
-              <div class="active-user-name" style="display: none;">
-                
-              </div>
+              <div class="active-user-name" style="display: none;"></div>
             <div class="cintainer-main"></div>
 
             <div class="div-input" style="display: none;">
               <div class="input-secton" style="transform: translateY(100px);">
+                <div class="emoji-container" id="emoji-container" style="display: none;"></div>
               <form id="submitForms" autocomplete="off">
-                <button type="button" id="emoji-btn"><svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 18 18" fill="none">
-                  <path d="M9.00002 0.666626C13.6025 0.666626 17.3334 4.39746 17.3334 8.99996C17.3334 13.6025 13.6025 17.3333 9.00002 17.3333C4.39752 17.3333 0.666687 13.6025 0.666687 8.99996C0.666687 4.39746 4.39752 0.666626 9.00002 0.666626ZM9.00002 2.33329C7.23191 2.33329 5.53622 3.03567 4.28598 4.28591C3.03573 5.53616 2.33335 7.23185 2.33335 8.99996C2.33335 10.7681 3.03573 12.4638 4.28598 13.714C5.53622 14.9642 7.23191 15.6666 9.00002 15.6666C10.7681 15.6666 12.4638 14.9642 13.7141 13.714C14.9643 12.4638 15.6667 10.7681 15.6667 8.99996C15.6667 7.23185 14.9643 5.53616 13.7141 4.28591C12.4638 3.03567 10.7681 2.33329 9.00002 2.33329ZM11.3334 10.5475C11.4111 10.469 11.5037 10.4068 11.6057 10.3645C11.7077 10.3221 11.817 10.3005 11.9275 10.3008C12.0379 10.3011 12.1472 10.3234 12.249 10.3663C12.3507 10.4092 12.4429 10.4719 12.5202 10.5507C12.5976 10.6296 12.6584 10.723 12.6993 10.8256C12.7402 10.9282 12.7603 11.0379 12.7584 11.1483C12.7565 11.2587 12.7327 11.3677 12.6883 11.4688C12.644 11.57 12.58 11.6613 12.5 11.7375C11.5662 12.6548 10.309 13.1681 9.00002 13.1666C7.69099 13.1681 6.43388 12.6548 5.50002 11.7375C5.34588 11.582 5.25913 11.372 5.25852 11.1531C5.25792 10.9341 5.34351 10.7237 5.49679 10.5674C5.65007 10.4111 5.85873 10.3213 6.07765 10.3176C6.29657 10.3138 6.50817 10.3964 6.66669 10.5475C7.28904 11.1593 8.12728 11.5015 9.00002 11.5C9.90835 11.5 10.7309 11.1375 11.3334 10.5475ZM6.08335 5.66663C6.41487 5.66663 6.73282 5.79832 6.96724 6.03274C7.20166 6.26716 7.33335 6.58511 7.33335 6.91663C7.33335 7.24815 7.20166 7.56609 6.96724 7.80051C6.73282 8.03493 6.41487 8.16663 6.08335 8.16663C5.75183 8.16663 5.43389 8.03493 5.19947 7.80051C4.96505 7.56609 4.83335 7.24815 4.83335 6.91663C4.83335 6.58511 4.96505 6.26716 5.19947 6.03274C5.43389 5.79832 5.75183 5.66663 6.08335 5.66663ZM11.9167 5.66663C12.2482 5.66663 12.5661 5.79832 12.8006 6.03274C13.035 6.26716 13.1667 6.58511 13.1667 6.91663C13.1667 7.24815 13.035 7.56609 12.8006 7.80051C12.5661 8.03493 12.2482 8.16663 11.9167 8.16663C11.5852 8.16663 11.2672 8.03493 11.0328 7.80051C10.7984 7.56609 10.6667 7.24815 10.6667 6.91663C10.6667 6.58511 10.7984 6.26716 11.0328 6.03274C11.2672 5.79832 11.5852 5.66663 11.9167 5.66663Z" fill="#888888"/>
+                <button type="button" id="emoji-btn"><svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 18 18" style="fill:#817F7F">
+                  <path d="M9.00002 0.666626C13.6025 0.666626 17.3334 4.39746 17.3334 8.99996C17.3334 13.6025 13.6025 17.3333 9.00002 17.3333C4.39752 17.3333 0.666687 13.6025 0.666687 8.99996C0.666687 4.39746 4.39752 0.666626 9.00002 0.666626ZM9.00002 2.33329C7.23191 2.33329 5.53622 3.03567 4.28598 4.28591C3.03573 5.53616 2.33335 7.23185 2.33335 8.99996C2.33335 10.7681 3.03573 12.4638 4.28598 13.714C5.53622 14.9642 7.23191 15.6666 9.00002 15.6666C10.7681 15.6666 12.4638 14.9642 13.7141 13.714C14.9643 12.4638 15.6667 10.7681 15.6667 8.99996C15.6667 7.23185 14.9643 5.53616 13.7141 4.28591C12.4638 3.03567 10.7681 2.33329 9.00002 2.33329ZM11.3334 10.5475C11.4111 10.469 11.5037 10.4068 11.6057 10.3645C11.7077 10.3221 11.817 10.3005 11.9275 10.3008C12.0379 10.3011 12.1472 10.3234 12.249 10.3663C12.3507 10.4092 12.4429 10.4719 12.5202 10.5507C12.5976 10.6296 12.6584 10.723 12.6993 10.8256C12.7402 10.9282 12.7603 11.0379 12.7584 11.1483C12.7565 11.2587 12.7327 11.3677 12.6883 11.4688C12.644 11.57 12.58 11.6613 12.5 11.7375C11.5662 12.6548 10.309 13.1681 9.00002 13.1666C7.69099 13.1681 6.43388 12.6548 5.50002 11.7375C5.34588 11.582 5.25913 11.372 5.25852 11.1531C5.25792 10.9341 5.34351 10.7237 5.49679 10.5674C5.65007 10.4111 5.85873 10.3213 6.07765 10.3176C6.29657 10.3138 6.50817 10.3964 6.66669 10.5475C7.28904 11.1593 8.12728 11.5015 9.00002 11.5C9.90835 11.5 10.7309 11.1375 11.3334 10.5475ZM6.08335 5.66663C6.41487 5.66663 6.73282 5.79832 6.96724 6.03274C7.20166 6.26716 7.33335 6.58511 7.33335 6.91663C7.33335 7.24815 7.20166 7.56609 6.96724 7.80051C6.73282 8.03493 6.41487 8.16663 6.08335 8.16663C5.75183 8.16663 5.43389 8.03493 5.19947 7.80051C4.96505 7.56609 4.83335 7.24815 4.83335 6.91663C4.83335 6.58511 4.96505 6.26716 5.19947 6.03274C5.43389 5.79832 5.75183 5.66663 6.08335 5.66663ZM11.9167 5.66663C12.2482 5.66663 12.5661 5.79832 12.8006 6.03274C13.035 6.26716 13.1667 6.58511 13.1667 6.91663C13.1667 7.24815 13.035 7.56609 12.8006 7.80051C12.5661 8.03493 12.2482 8.16663 11.9167 8.16663C11.5852 8.16663 11.2672 8.03493 11.0328 7.80051C10.7984 7.56609 10.6667 7.24815 10.6667 6.91663C10.6667 6.58511 10.7984 6.26716 11.0328 6.03274C11.2672 5.79832 11.5852 5.66663 11.9167 5.66663Z"/>
                 </svg></button>
-                <input placeholder="Send a message" id="input-messages">
-                <input type="file" name="Images" id="imagesShare" style="display: none;">
+                <input placeholder="Send a message..." id="input-messages">
                 <button type="button" id="selcet-images"><i class="bi bi-link-45deg" style="font-size: 25px; color: #817F7F;;"></i></button>
                 <button type="submit" class="btn" id="submit" disabled><svg id="svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(150, 150, 150, 1);"><path d="m21.426 11.095-17-8A.999.999 0 0 0 3.03 4.242L4.969 12 3.03 19.758a.998.998 0 0 0 1.396 1.147l17-8a1 1 0 0 0 0-1.81zM5.481 18.197l.839-3.357L12 12 6.32 9.16l-.839-3.357L18.651 12l-13.17 6.197z"></path></svg></button>
-              
+                
               </form>
+              <input type="file" name="Images" id="imagesShare" style="display: none;">
               </div>
             </div>
           </div>
@@ -67,7 +134,8 @@
 
             <div class="div1">
               <div class="upper-controller">
-                <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 35 35" fill="none" style="margin-right: 20px;">
+                <h3 class="mb-0 ml-3" style="font-size: 20px; font-weight: 800; color: #fff;">User list</h3>
+                <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 35 35" fill="none" style="margin-right: 21px; cursor: pointer;">
                   <circle cx="17.5" cy="17.5" r="17.5" fill="white"/>
                   <path d="M12.7571 24.136L23.1406 11.7614" stroke="#F26E56" stroke-width="3" stroke-linecap="round"/>
                   <path d="M23.9866 23.9866L12.5641 12.5641" stroke="#F26E56" stroke-width="3" stroke-linecap="round"/>
@@ -79,7 +147,7 @@
                   <% user.forEach((e) => { %>
                     <div class="user1 " onclick="getId('<%= e._id %>', '<%= e.fullName %>')">
                       <div class="images-profile">
-                        <img src="/src/user1.jpg" alt="">
+                        <img src="<%= e.profile_picture[0].file_name %>" alt="">
                       </div>
                       <div class="user-names">
                         <h3><%= e.fullName %></h3> 
@@ -119,22 +187,140 @@
                     </div>
                   <% }); %>
                 <% } %>
+                
               </div>
               
+              <div class="lower-controller d-flex align-items-center justify-content-between">
+                <% if (typeof whoLogin != undefined) { %>
+                  <% whoLogin.forEach((e)=>{ %>
+                <div class="main-user-profile d-flex ml-3">
+                  <img src="<%= e.profile_picture[0].file_name %>" alt="User profile image" id="ower-pic-img">
+                  <div class="main-user-name d-flex flex-column ml-2">
+                    <h6 class="mb-0" style="font-weight: 700; color: aliceblue;"><%= e.fullName %></h6>
+                    <span class="main-user-email" style="font-size: 11px; font-weight: 700; color: #ffc107;"><%= e.email_id %></span>
+                  </div>
+                </div>
+                <div class="user-settings mr-4">
+                  <a href="dashboard/profile/settings/<%= e._id %>"><i class="bi bi-gear-fill" style="color: #fff; font-size: 18px;"></i></a>
+                </div>
+                <% }) %>
+               <% } %>
+              </div>
+
             </div>
           
           
         </div>
     </div>
 
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
-<script src="/javascripts/home.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
-<script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="/javascripts/home.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script defer src="/javascripts/lottie.js" crossorigin="anonymous"></script>
+    <script defer src="/javascripts/preloader.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/emoji-mart@latest/dist/browser.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
 
 <script>
+
+$(document).ready(()=>{
+      let sucess = "<%= success_msg %>";
+      let errors = "<%= error_msg %>";
+      const notyf = new Notyf({
+        position: {
+        x: 'center',
+        y: 'top',
+      },
+      dismissible: true,
+      types: [
+    {
+      background: 'linear-gradient(90deg, hsla(280, 95%, 57%, 1) 0%, hsla(193, 90%, 55%, 1) 100%)',
+      icon: '<i class="bi bi-emoji-laughing"></i>'
+    }
+  ]
+      });
+        if (sucess) {
+          setTimeout(() => {   
+            notyf.open({
+            message: sucess,
+            duration: 5000
+          })
+          }, 4000);
+        }
+        if (errors) {
+          setTimeout(() => {   
+            notyf.open({
+            message: errors,
+            duration: 5000
+          })
+          }, 4000);
+        }
+     });
+
+$(function() {
+  $('[data-toggle="tooltip"]').tooltip();
+});
+
+  let images_preview = document.querySelector('.images-preview');
+  let mainCanvas = document.getElementById('canvas-only');
+  let aftersendImages_preview = document.querySelector('.images-preview-after');
+  let aftersendImages_canvas = document.getElementById('canvas-after');
+
+  let reciverimages_preview = document.querySelector('.images-preview-reciver');
+  let reciverImages_canvas = document.getElementById('canvas-0f-reciver');
+  let Images_download_btn = document.getElementById('reciver-download-button');
+
+emoji_btn.addEventListener('mouseover', function () {
+  emoji_svg.style.fill = '#000';
+})
+emoji_btn.addEventListener('mouseout', function () {
+  emoji_svg.style.fill = '#817F7F';
+});
+
+onwer_img.onclick = function () {
+  aftersendImages_preview.classList.remove('d-none');
+  let img = document.createElement('img');
+  img.src = this.src;
+  aftersendImages_canvas.appendChild(img);
+  return;
+};
+
+// Emojis implementation.........
+const pickerOptions = { onEmojiSelect: function (emojis) {
+  input.value += emojis.native;
+  input_button_working();
+}, theme: 'light', previewPosition: 'none', navPosition:'bottom' }
+const picker = new EmojiMart.Picker(pickerOptions);
+
+emoji_btn.addEventListener('click', function (e) {
+  if (emoji_container.style.display == 'none') {
+    emoji_containner_show();
+  } else {
+    emoji_containner_hide();
+  }
+  return;
+})
+
+document.addEventListener('click', function (e) {
+  if (! $('.modal-backdrop').on('click', closeModal);.contains(e.target) && !emoji_container.contains(e.target)) {  // If someone click outside the targer then emoji will close...
+    emoji_containner_hide();
+  }
+});
+
+function emoji_containner_hide() {
+  $(emoji_container).hide();
+  $(emoji_container).html('');
+}
+function emoji_containner_show() {
+  const picker = new EmojiMart.Picker(pickerOptions);
+  $(emoji_container).show();
+  emoji_container.appendChild(picker);
+}
+
   // Socket io ...........
   const socket = io({ auth:{ token: '<%= currentUser._id %>', userName: '<%= currentUser.fullName %>' } });
   let sender_id = '<%= currentUser._id %>';
@@ -179,15 +365,77 @@
       socket.emit('fetch-messages', {data});
       let notify = document.getElementById(data+'-notify');
       notify.classList.add('d-none');
-};
 
+    };
+    
+    
+    selecetImages.addEventListener("click", function () {
+      inputforImages.click();
+    });
+
+    inputforImages.addEventListener("change", () => {
+        let file = inputforImages.files[0];
+        if (file) {
+          const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = (e) => {
+            let result = e.target.result;
+
+            const img = document.createElement('img');
+            img.src = result;
+
+            img.onload = (event)=>{
+              let new_imges =  imagesConverter(event, file, img);
+              let new_img = document.createElement('img');
+              new_img.src = new_imges;   
+              new_img.classList.add('sent-image');
+              mainCanvas.appendChild(new_img);
+              images_preview.classList.remove('d-none');
+
+              window.newimagesend = new_img;
+            }
+          };
+        };
+      });
+
+
+      function imageSendTouser() {
+        if (window.newimagesend) {
+          let name = titele.getAttribute('username');
+          let to = titele.getAttribute('userId');
+          let imgaes = window.newimagesend.currentSrc;
+
+          let payload2 = {
+            from: socket.id,
+            name,
+            to,
+            images: imgaes,
+            time: exactTime
+          }
+          socket.emit('image-send-to-server', payload2);
+          ImagesAppeend("images-right","images-user",`<h6>You:</h6>`, imgaes,'sent-image' ,exactTime);
+          image_preview_close();
+        };
+      };
+
+
+  //...........................
       socket.on('get_user_messagesAll', (data)=>{
         if (data.length>0) {
           data.forEach((e) => {
+            console.log(e)
             if (e.senderId === socket.id) {
-              appnedFormessages("right-div", "right-chatbox", "<h4>You: </h4>", e.messages, `<p>${e.time}</p>`)
+              if (e.images != null) {
+                ImagesAppeend("images-right","images-user",`<h6>You:</h6>`, e.images,'sent-image' ,e.time); 
+              } else {
+                appnedFormessages("right-div", "right-chatbox", "<h4>You: </h4>", e.messages, `<p>${e.time}</p>`);
+              }
             }else{
-              appnedFormessages("left-div","left-chatbox",`<h4>${e.senderName}: </h4>`,e.messages, `<p>${e.time}</p>`)
+              if (e.images != null) {
+                ImagesAppeend("images-left","images-user2",`<h6>${e.senderName}: </h6>`,e.images, 'recive-images' ,e.time);
+              } else {
+                appnedFormessages("left-div","left-chatbox",`<h4>${e.senderName}: </h4>`,e.messages, `<p>${e.time}</p>`)
+              }
             }
           });
         }
@@ -197,24 +445,32 @@ $(form).submit(function (event) {
   event.preventDefault();
 
           let messages = $('#input-messages').val().trim();
-          $('#input-messages').val('')
-          button.style.background = "transparent";
-          button.style.bordercolor = "red";
-          button.disabled = true;
-          document.getElementById("svg").style.fill = "#b5b8c2";
-          document.getElementById("svg").style.fill = "white";
-          appnedFormessages("right-div", "right-chatbox", "<h4>You: </h4>", messages, `<p>${exactTime}</p>`);
-          const name = titele.getAttribute('username');
-          const to  = titele.getAttribute('userId');
-          let payload = {
+          if (messages) {
+            button.style.background = "transparent";
+            button.style.bordercolor = "red";
+            button.disabled = true;
+            document.getElementById("svg").style.fill = "#b5b8c2";
+            document.getElementById("svg").style.fill = "white";
+            appnedFormessages("right-div", "right-chatbox", "<h4>You: </h4>", messages, `<p>${exactTime}</p>`);
+            const name = titele.getAttribute('username');
+            const to  = titele.getAttribute('userId');
+            let payload = {
             from: socket.id,
             name,
             to,
             messages,
             time: exactTime
           }
-            socket.emit('send-messages-toserver', payload);
+          socket.emit('send-messages-toserver', payload);
+          $('#input-messages').val('');
+            emoji_containner_hide();
+          } 
     });
+
+    socket.on('userJoined', (data)=>{
+          document.getElementById(`${data.user_id}-status`).innerText = 'Online';
+          document.getElementById(`${data.user_id}-dot`).style.display = 'block';
+        });
 
         socket.on("send_messages-toUsers", ({from, messages, name, time}) => {
           let reciver = titele.getAttribute('userId');
@@ -228,15 +484,110 @@ $(form).submit(function (event) {
           }
         });
 
-        socket.on('userJoined', (data)=>{
-          document.getElementById(`${data.user_id}-status`).innerText = 'Online';
-          document.getElementById(`${data.user_id}-dot`).style.display = 'block';
+
+        socket.on('image-sendBack-to-reciver', ({from, name, to, images, time})=>{
+          let reciver = titele.getAttribute('userId');
+          let notify = document.getElementById(from+'-notify');
+          if (reciver === null) { 
+            notify.classList.remove('d-none');
+          }else if (reciver === from){
+            ImagesAppeend("images-left","images-user2",`<h6>${name}: </h6>`,images, 'recive-images' ,time);
+          }else{
+            notify.classList.remove('d-none');
+          }
         });
 
         socket.on('userDdisconnected', (data)=>{
           document.getElementById(`${data.user_id}-status`).innerText = '';
           document.getElementById(`${data.user_id}-dot`).style.display = 'none';
-        })
+        });
+
+        // Images appened Function ............
+function ImagesAppeend(imagesPosiion, sender, sendBy, result, image_classlist ,exactTime) {
+  const imagesposition = document.createElement("div");
+  imagesposition.classList.add(imagesPosiion);
+
+  const secontImagesDiv = document.createElement("div");
+  secontImagesDiv.classList.add(sender);
+  secontImagesDiv.insertAdjacentHTML("afterbegin", sendBy);
+  let img = document.createElement("img");
+  img.classList.add(image_classlist);
+  console.log(result)
+  img.src = result;
+  secontImagesDiv.appendChild(img);
+  secontImagesDiv.insertAdjacentHTML("beforeend", `<p>${exactTime}</p>`);
+
+  imagesposition.append(secontImagesDiv);
+  cintainer_main.append(imagesposition);
+}
+
+function imagesConverter(event, image, oldimg) {
+    const WIDTH = 900;
+    const canvas = document.createElement('canvas');
+    let ratio = WIDTH / event.target.width;
+              canvas.width = WIDTH;
+              canvas.height = event.target.height * ratio ;
+
+              let context = canvas.getContext('2d');
+              context.drawImage(oldimg, 0,0, canvas.width, canvas.height); 
+
+              let new_img_url = context.canvas.toDataURL(image.type, 50);
+              return new_img_url;       
+  }
+
+
+
+  document.addEventListener('click', (e)=>{
+    if(e.target.className == 'sent-image'){
+        let currentImgSrc = e.target.currentSrc;
+
+        let imagesELMT = document.createElement('img');
+        imagesELMT.classList.add('after-preview-forYou')
+        imagesELMT.src = currentImgSrc;
+        aftersendImages_canvas.innerHTML = '';
+        aftersendImages_canvas.appendChild(imagesELMT);
+        aftersendImages_preview.classList.remove('d-none');
+    }
+    if (e.target.className == 'recive-images'){
+      let currentImgsrc_reciver = e.target.currentSrc;
+
+      let imagesELMT = document.createElement('img');
+        imagesELMT.classList.add('after-preview-forReciver')
+        imagesELMT.src = currentImgsrc_reciver;
+        reciverImages_canvas.innerHTML = '';
+        reciverImages_canvas.appendChild(imagesELMT);
+        Images_download_btn.href = currentImgsrc_reciver
+        reciverimages_preview.classList.remove('d-none');
+    }
+  });
+
+  function closebtn() {
+    aftersendImages_canvas.innerHTML = '';
+    aftersendImages_preview.classList.add('d-none');
+    return;
+  }
+
+  function image_preview_close() {
+    $(mainCanvas).html('');
+    $(images_preview).addClass('d-none');
+  };
+
+  function reciver_preview() {
+    $(reciverImages_canvas).html('');
+    $(Images_download_btn).attr('herf', '');
+    $(reciverimages_preview).addClass('d-none');
+  }
+
+  document.addEventListener('keydown', (e)=>{
+    if (e.shiftKey && e.code === 'KeyN') {
+      if (left_menue.style.display == "none") {
+    left_menue.style.display = "block";
+  } else {
+    left_menue.style.display = "none";
+    openNav.style.display = "block";
+  }
+    }
+  });
 </script>
 </body>
 </html>

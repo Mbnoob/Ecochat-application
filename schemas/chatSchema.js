@@ -13,7 +13,8 @@ const userChats = new Schema({
             reciverId: String,
             Recivername: String,
             messages: String,
-            time: String
+            time: String,
+            images: String
         }
     ]
 }, {

@@ -1,15 +1,27 @@
-@import url('https://fonts.googleapis.com/css2?family=Istok+Web&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,400;1,500;1,600;1,700;1,800;1,900;1,1000&display=swap');
+ 
+
 
 *{
     padding: 0px;
     margin: 0px;
     box-sizing: border-box;
-    font-family: 'poppins', sans-serif;
+    font-family: 'Nunito', sans-serif;
+}
+
+html{
+    height: -webkit-fill-available;
 }
 
 body{
     height: 100vh;
+    height:  -webkit-fill-available;
     background: #FFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
     &::-webkit-scrollbar {
         width: 10px;
     }
@@ -22,9 +34,11 @@ body{
     }
 }
 
+      
 .main{
     background: #53C58A;
-    height: 100vh;
+    height: 100%;
+    flex: 1;
     overflow: hidden;
 }
 
@@ -47,10 +61,9 @@ body{
     outline: none;
     padding: 5px;
     color: #FFF;
-    font-family: Inter;
     font-size: 14px;
     font-style: normal;
-    font-weight: 700;
+    font-weight: 800;
     line-height: normal;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -67,7 +80,7 @@ body{
     background-color: transparent;
     float: right;
     overflow: hidden;
-    transition: all .2s ease-in-out;
+    transition: .2s ease-in-out;
 }
 
 .main .right-container .home-images{
@@ -100,13 +113,12 @@ body{
     height: 87%;
     width: 100%;
     background-color: transparent;
-    border-radius: 50px;
     overflow-y: auto;
     &::-webkit-scrollbar {
         width: 10px;
     }
     &::-webkit-scrollbar-thumb{
-        background-color: #6b7997;
+        background-color: #3e4658;
         border-radius: 10px;
     }
     &::-webkit-scrollbar-track{
@@ -174,35 +186,35 @@ body{
 .left-chatbox h4{
     font-size: 10px;
     margin-bottom: 0;
-    margin-top: 10px;
-    color: #464646;
+    margin-top: 5px;
+    color: #ffffff;
     font-weight: bolder;
     text-decoration: underline;
     font-style: italic;
 }
 
 .left-chatbox p{
-    color: #ffcdb2;
+    color: #ffffff;
     font-size: 10px;
     font-style: normal;
     font-weight: 700;
     margin-bottom: 0;
-    text-align: left;
+    text-align: right;
     padding-top: 3px;
 }
 
 .right-chatbox h4{
     font-size: 10px;
     margin-bottom: 0;
-    margin-top: 10px;
-    color: #464646;
+    margin-top: 5px;
+    color: #ffffff;
     font-weight: bolder;
     text-decoration: underline;
     font-style: italic;
 }
 
 .right-chatbox p{
-    color: #4F5F8D;
+    color: #ffffff;
     font-size: 10px;
     font-style: normal;
     font-weight: 700;
@@ -213,13 +225,13 @@ body{
 
 .main .right-container .right-chatbox{
     float: right;
-    margin: 20px 10px;
+    margin: 5px 7px;
     padding: 0px 12px 6px;
-    box-shadow: -10px 12px 30px 5px rgba(0, 0, 0, 0.20);
     border: 2px solid #000;
-    background: #FEC347;
+    background: #8a57ea;
     border-radius: 20px 0px 20px 20px;
-    color: #ffffff;
+    color: #000000;
+    font-weight: 700;
     overflow: hidden;
 }
 
@@ -256,10 +268,43 @@ body{
     height: 10%;
     position: sticky;
     background-color: transparent;
-    border-bottom: 1px solid black;
+    border-bottom: 2px solid black;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
 }
+
+.lower-controller{
+    width: 100%;
+    height: 10%;
+    position: static;
+    background-color: transparent;
+    border-top: 2px solid black;
+}
+
+.lower-controller .main-user-profile img{
+    width: 35px;
+    max-height: 36px;
+    border-radius: 30px;
+}
+
+.lower-controller .user-settings button{
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+
+.user-settings{
+    width: 30px;
+    text-align: center;
+    background-color: transparent;
+    padding-top: 1px;
+    border-radius: 30px;
+}
+
+.user-settings:hover{
+    background-color: #36363673;
+}
+
 .main .left-menu .div1 .upper-controller i{
     font-size: 25px;
     margin-right: 30px;
@@ -293,19 +338,21 @@ body{
     
 }
 
-.div-input input {  
+    .div-input input {  
     padding: 0;
     border: 0;
     outline: 0;
     width: 65%;
     background-color: #D9D9D9;
     position: relative;
-    left: 20px;
+    left: 5px;
+    color: #000;
+    font-weight: 700;
   }
 
-  textarea::placeholder{
+  .div-input input::placeholder{
     color: #817f7f;
-    font-weight: bold;
+    font-weight: 900;
   }
 
   #submit{
@@ -373,48 +420,46 @@ body{
 .cintainer-main .images-right{
         display: flex;  
         justify-content: flex-end;
-        padding-right: 40px;
-        padding-top: 10px;
 }
 
 .cintainer-main .images-right .images-user{
-    width: 22%;
-    background-color: #747474;
+    width: 50%;
+    background-color: #8a57ea;
     padding: 10px;
     border-radius: 10px 0px 10px 10px;
-    box-shadow: -15px 24px 40px 5px rgba(0, 0, 0, 0.20)
+    margin: 5px 7px;
+    border: 2px solid black;
 }
 
 .cintainer-main .images-left{
     display: flex;
     justify-content: flex-start;
-    padding-left: 40px;
-    padding-bottom: 20px;
 }
 
 .cintainer-main .images-left .images-user2{
-    width: 22%;
-    background-color: #F4F2F2;
+    width: 50%;
+    background-color: #f26e56;
     padding: 10px;
     border-radius: 0px 10px 10px 10px;
-    box-shadow: 10px -15px 40px 5px rgba(0, 0, 0, 0.20);
+    margin: 5px 7px;
 }
 
 .cintainer-main .images-left .images-user2 h6{
-    font-size: 17px;
-    font-weight: bold;
-    color: forestgreen;
+    font-size: 11px;
+    font-weight: bolder;
+    color: #ffffff;
     text-decoration: underline;
-    font-style: italic;   
+    font-style: italic;  
 }
 
 .cintainer-main .images-left .images-user2 p{
-    float: right;
+    color: #ffffff;
     font-size: 10px;
-    font-weight: bold;
-    color: #818181;
+    font-style: normal;
+    font-weight: 700;
     margin-bottom: 0;
-    margin-top: 3px;
+    text-align: right;
+    padding-top: 3px;
 }
 
 .cintainer-main img{
@@ -422,21 +467,22 @@ body{
 }
 
 .cintainer-main .images-right .images-user h6{
-    text-align: right;
-    font-size: 17px;
-    font-weight: bold;
-    color: #BCBCBC;
+    text-align: left;
+    font-size: 11px;
+    font-weight: bolder;
+    color: #ffffff;
     text-decoration: underline;
     font-style: italic;
 }
 
 .cintainer-main .images-right .images-user p{
-    float: right;
+    color: #ffffff;
     font-size: 10px;
-    font-weight: bold;
-    color: #BCBCBC;
+    font-style: normal;
+    font-weight: 700;
     margin-bottom: 0;
-    margin-top: 3px;
+    text-align: right;
+    padding-top: 3px;
 }
 
 .Allusers{
@@ -463,6 +509,7 @@ body{
         gap: 10px;
         padding-right: 10px;
         overflow: hidden;
+        cursor: pointer;
 }
 
 .Allusers .user1 .images-profile{
@@ -476,11 +523,13 @@ body{
     border-radius: 30px; 
 }
 
+
+
 .user-names h3{
     color: #000;
     font-size: 15px;
     font-style: normal;
-    font-weight: 700;
+    font-weight: 900;
     line-height: normal;
     text-transform: uppercase;
     margin-bottom: 0;
@@ -507,18 +556,53 @@ body{
     border: none;
     outline: none;
     background: transparent;
+    padding: 2px;
 }
 
 #emoji-btn:hover{
-    background-color: #4e4e4e;
+    border-radius: 20px;
+    background-color: #747474;
+    fill: #000;
+}
+
+
+.div-input .emoji-container{
+    position: absolute;
+    bottom: 48px;
+    border-radius: 17px;
+    left: 10px;
+    overflow-y: auto;
+}
+
+.emojis-search{
+    margin: 13px 0px;
+}
+
+.emojis-search input{
+    width: 88%;
+    padding: 3px 11px;
+    border-radius: 10px;
+    border: 1px solid #a1a1a1
+}
+
+.all-emojis .emojis-list li{
+    list-style: none;
+}
+
+#emojis-list{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0px 12px;
+    gap: 5px;
 }
 
 .profile-ownername h2{
-    font-size: 15px;
-    font-weight: bold;
+    font-size: 20px;
+    font-weight: 900;
     margin-bottom: 0;
     text-align: center;
-    color: #4F5F8D;
+    color: #fff;
+    line-height: 3;
 }
 
 .Allusers .user1:hover{
@@ -541,7 +625,169 @@ body{
     margin-bottom: 0;
     position: relative;
     left: 50px;
-    color: #4780ba;
-    font-weight: bold;
+    color: #ffca27;
+    font-weight: 800;
     letter-spacing: 1px;
 }
+
+#arrow-gif{
+    width: 100%;
+    position: relative;
+    right: 145px;
+}
+
+.images-preview{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    z-index: 200;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  #canvas-only{
+    background: #53C58A;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+  }
+  
+  .cavas-footer{
+    position: sticky;
+      width: 100%;
+      background: #e9ecef;
+      display: flex;
+      justify-content: space-around;
+      padding: 0.75rem;
+      align-items: center;
+      border-top: 2px solid black;
+  }
+
+  .closed-preview{
+    width: 90px;
+    height: 43px;
+    border-radius: 10px;
+    border: 2px solid #000;
+    background: #F26E56;
+    color: #FFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .send-preview-images{
+    width: 90px;
+    height: 43px;
+    border-radius: 10px;
+    border: 2px solid #000;
+    background: #4F5F8D;;
+    color: #FFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .send-preview-images:hover{
+    background-color: #2d384f;
+  }
+
+  .closed-preview:hover{
+    background-color: #953726;
+  }
+  
+  .images-preview-after{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    z-index: 200;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  #canvas-after{
+      background: #0000008c;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+  }
+
+  .images-preview-reciver{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    z-index: 200;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  #canvas-0f-reciver{
+      background: #53C58A;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+  }
+
+  .cavas-footer-reciver{
+    position: sticky;
+      width: 100%;
+      background: #e9ecef;
+      display: flex;
+      justify-content: space-around;
+      padding: 0.75rem;
+      align-items: center;
+      border-top: 2px solid black;
+  }
+
+  .button-download{
+    width: 115px;
+    height: 43px;
+    border-radius: 10px;
+    border: 2px solid #000;
+    color: #FFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #4F5F8D;
+  }
+
+  .note-preview{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .note-preview p{
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 13px;
+    font-weight: 800;
+    color: #473753;
+  }
+
+  .reciver-name{
+    position: absolute;
+    position: absolute;
+    top: 0;
+    margin-top: 1rem;
+    left: 0;
+    margin-left: 1rem;
+    color: #f8f9fa;
+    font-weight: 800;
+    font-size: 18px;
+    z-index: 201;
+  }
+

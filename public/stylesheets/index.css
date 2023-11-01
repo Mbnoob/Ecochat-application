@@ -1,0 +1,139 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,400;1,500;1,600;1,700;1,800;1,900;1,1000&display=swap');
+
+*{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    font-family: 'poppins', sans-serif;
+}
+
+body{
+    height: 100vh;
+    background: #FFF;
+    &::-webkit-scrollbar {
+        width: 10px;
+    }
+    &::-webkit-scrollbar-thumb{
+        background-color: #b8b9c3;
+        border-radius: 10px;
+    }
+    &::-webkit-scrollbar-track{
+        background-color: transparent;
+    }
+}
+
+.main{
+    height: 100vh;
+    background: #53C2C5;
+    overflow: hidden;
+}
+
+.nav-button{
+    outline: none;
+    background-color: transparent;
+    border: none;
+}
+
+.nav-button:hover{
+   background-color: white;
+}
+
+.main .logo img{
+    width: 150px;   
+}
+
+
+
+.main .container .all-containt{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.text-subtext h2{
+    font-size: 25px;
+    font-style: normal;
+    font-weight: bold;
+    line-height: normal;
+    color: #000;
+    margin-bottom: 0;
+}
+
+.text-subtext p{
+    color: #000;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+.carousel {
+    background: transparent;
+  }
+  
+  .carousel-cell {
+    width: 33%;
+    height: 100px;
+    margin-right: 10px;
+    background: #8C8;
+    border-radius: 5px;
+    padding: 5px;
+    counter-increment: gallery-cell;
+  }
+  
+  .carousel-cell.size-180 { width: 180px; }
+  .carousel-cell.size-large { width: 75%; }
+  
+  .carousel-cell p{
+    color: #FFF;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+  }
+
+  /* position dots in carousel */
+.flickity-page-dots {
+    bottom: 0px;
+  }
+  /* white circles */
+  .flickity-page-dots .dot {
+    width: 12px;
+    height: 12px;
+    opacity: 1;
+    background: transparent;
+    border: 2px solid black;
+  }
+  /* fill-in selected dot */
+  .flickity-page-dots .dot.is-selected {
+    background: white;
+  }
+
+  .signup-btn{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 9%;
+  }
+
+  #homepage-signup{
+    width: 309px;
+    height: 41px;
+    border-radius: 10px;
+    border: 2px solid #000;
+    background: #FEC347;
+    color: #000;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: bold;
+    line-height: normal;
+    filter: drop-shadow(5px 4px 0px #000);
+    transition: all 0.2s ease-in-out;
+  }
+
+  #homepage-signup:hover{
+    background-color: #f8a900;
+    filter: drop-shadow(0px 0px 0px #000);
+  }

@@ -6,6 +6,7 @@
     const path = require('path');
     const body_parser = require('body-parser');
     const session = require('express-session');
+    const flash = require('connect-flash');
     const http = require('http').createServer(app)
     const io = require('socket.io')(http)
     const cors = require('cors');
@@ -17,6 +18,7 @@
     app.use(body_parser.urlencoded({extended:true}));
     app.use(body_parser.json());
     app.use(express.static(path.join(__dirname, "public")));
+    app.use(express.static(path.join(__dirname, "public/uploads")));
     app.use(cors());
 
     // Initialize session .................
@@ -27,6 +29,13 @@
     }));
 
     // All routers connection................
+    app.use(flash());
+    app.use((req, res, next)=>{
+        res.locals.sucess = req.flash('sucess');
+        res.locals.warning = req.flash('warning');
+        res.locals.errors = req.flash('errors');
+        next();
+    });
     app.use('/', router);
 
     // Socket.io middleware for custom socket ID creation..........
@@ -79,7 +88,19 @@
         };
 
        let results =  await chats.updateOne({tokens: tokens}, {$push: { Allmessages: data }});
-       console.log(results)
+    }
+
+   async function send_images_database(data) {
+        let tokens = generateToknes(data.to, data.from);
+        let imagesData = {
+            senderId: data.from,
+            senderName: socket.username,
+            reciverId: data.to,
+            Recivername: data.name,
+            images: data.images,
+            time: data.time
+        }
+        const imgRuselt = await chats.updateOne({ tokens: tokens }, {$push: { Allmessages: imagesData }});
     }
 
     // is online or offline updates...........
@@ -99,9 +120,11 @@
     })
 
 
-    // Socket.on('images', data=>{
-    //     Socket.broadcast.emit('new-images', {data:data.result, name:user[Socket.id], time:data.time});
-    // });
+    socket.on('image-send-to-server', (data)=>{
+        io.to(data.to).emit('image-sendBack-to-reciver', data);
+        send_images_database(data)
+        // console.log(data)
+    });
 
     // If disconnect any user..................
     socket.on('disconnect', async()=>{

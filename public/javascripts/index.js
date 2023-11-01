@@ -12,8 +12,4 @@ eye_seen.addEventListener('click', ()=>{
         passwordInput.type = 'password';
         eye_seen.innerHTML = '<i class="bi bi-eye-fill" style="font-size: 18px;"></i>'
     }
-})
-
-// from.addEventListener('submit', (e)=>{
-//     e.preventDefault();
-// })
+});

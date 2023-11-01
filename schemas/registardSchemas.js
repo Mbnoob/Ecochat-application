@@ -17,7 +17,14 @@ const userRegistard = new Schema({
         type: String,
         default: 0,
         unique: true
-    }
+    },
+    profile_picture: [
+        {
+            file_name: String,
+            file_size: String,
+            file_path: String,
+        }
+    ]
 },
     {timestamps: true}
 )
