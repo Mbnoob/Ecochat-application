@@ -1,0 +1,5 @@
+debayanbain90
+CqiD8BmpgPcDp996
+EcochatApppliction
+
+const uri = "mongodb+srv://debayanbain90:CqiD8BmpgPcDp996@ecochatapppliction.22fg9fe.mongodb.net/EcochatApppliction?retryWrites=true&w=majority";
