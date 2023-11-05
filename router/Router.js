@@ -27,17 +27,17 @@ router.get("/dashboard", isLogin, async(req, res) => {
   res.render("dashboard", { user: allUsers, currentUser: req.session.user, whoLogin: presentUser });
 });
 
-// router.get("/dashboard/profile/settings/:id", isLogin, async(req,res)=>{
-//   // Somethings do,........
-//   let alldetails = await registardSchema.find({ _id: req.params.id });
-//   res.render('userSettings', { alldetails: alldetails});
-// });
+router.get("/dashboard/profile/settings/:id", isLogin, async(req,res)=>{
+  // Somethings do,........
+  let alldetails = await registardSchema.find({ _id: req.params.id });
+  res.render('userSettings', { alldetails: alldetails});
+});
 
-router.get('/dashboard/profile/settings', (req,res)=>{
-  res.render('userSettings')
-})
+// router.get('/dashboard/profile/settings', (req,res)=>{
+//   res.render('userSettings')
+// })
 
-router.post('/update', updateUser);
+router.post('/update',upload.single("image"), updateUser); 
 
 router.post("/signup", upload.single("file"), registard);
 

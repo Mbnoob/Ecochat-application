@@ -6,7 +6,7 @@ const signin_schema = require("../validation/signinValidation");
 
 const registard = async (req, res) => {
   const { value, error } = signupSchema.validate(req.body, {
-    abortEarly: true,allowUnknown: true
+    abortEarly: true, allowUnknown: true
   });
 
   if (error) {
@@ -112,8 +112,6 @@ const login = async (req, res) => {
 
 //Update call.......
 const updateUser = async (req,res)=>{
-  console.log(req.body)
-  return false;
   let oldEmail = req.body.Oldemail;
   let newEmail = req.body.email;
   let fullName = req.body.name;
@@ -135,6 +133,42 @@ const updateUser = async (req,res)=>{
         return res.status(200).json({message: "Name Updated..."})
       }
     }
+  if (req.body.characterUrl) {
+    let emailsIds = req.body.emailID;
+    let characterData = {
+      file_name: req.body.characterUrl,
+      file_size: "under 180kb",
+      file_path: "/src/character"
+    }
+    let updatedcharacter = await registardSchema.findOneAndUpdate({email_id: emailsIds}, { $set: { profile_picture: [characterData]}});
+    if (!updatedcharacter) {
+      return res.json({message: "User is invalid..."});
+    } else {
+      return res.status(200).json({message: "Updated successfully..."});
+    }
+  }
+  if (req.file) {
+    let emailsId2 = req.body.emailID;
+    let fileSize = req.file.size;
+    let filekb = (fileSize / 1024).toFixed(2);
+    let size = null;
+    if (filekb < 1024) {
+      size = filekb + "KB";
+    } else {
+      size = (fileSize / (1024 * 1024)).toFixed(2) + "MB";
+    }
+    let ownCharacterData = {
+      file_name: req.file.filename,
+      file_size: size,
+      file_path: req.file.destination,
+    }
+    let updatedcharacter = await registardSchema.findOneAndUpdate({email_id: emailsId2}, { $set: { profile_picture: [ownCharacterData]}});
+    if (!updatedcharacter) {
+      return res.json({message: "User is invalid..."});
+    } else {
+      return res.status(200).json({message: "Updated successfully..."});
+    }
+  }
   } catch (error) {
     return res.status(500).json({error: 'Server error...'});
   }

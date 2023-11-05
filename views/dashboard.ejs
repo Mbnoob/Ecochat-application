@@ -306,7 +306,7 @@ emoji_btn.addEventListener('click', function (e) {
 })
 
 document.addEventListener('click', function (e) {
-  if (! $('.modal-backdrop').on('click', closeModal);.contains(e.target) && !emoji_container.contains(e.target)) {  // If someone click outside the targer then emoji will close...
+  if (!emoji_btn.contains(e.target) && !emoji_container.contains(e.target)) {  // If someone click outside the targer then emoji will close...
     emoji_containner_hide();
   }
 });
@@ -503,28 +503,28 @@ $(form).submit(function (event) {
         });
 
         // Images appened Function ............
-function ImagesAppeend(imagesPosiion, sender, sendBy, result, image_classlist ,exactTime) {
-  const imagesposition = document.createElement("div");
-  imagesposition.classList.add(imagesPosiion);
+          function ImagesAppeend(imagesPosiion, sender, sendBy, result, image_classlist ,exactTime) {
+            const imagesposition = document.createElement("div");
+            imagesposition.classList.add(imagesPosiion);
 
-  const secontImagesDiv = document.createElement("div");
-  secontImagesDiv.classList.add(sender);
-  secontImagesDiv.insertAdjacentHTML("afterbegin", sendBy);
-  let img = document.createElement("img");
-  img.classList.add(image_classlist);
-  console.log(result)
-  img.src = result;
-  secontImagesDiv.appendChild(img);
-  secontImagesDiv.insertAdjacentHTML("beforeend", `<p>${exactTime}</p>`);
+            const secontImagesDiv = document.createElement("div");
+            secontImagesDiv.classList.add(sender);
+            secontImagesDiv.insertAdjacentHTML("afterbegin", sendBy);
+            let img = document.createElement("img");
+            img.classList.add(image_classlist);
+            console.log(result)
+            img.src = result;
+            secontImagesDiv.appendChild(img);
+            secontImagesDiv.insertAdjacentHTML("beforeend", `<p>${exactTime}</p>`);
 
-  imagesposition.append(secontImagesDiv);
-  cintainer_main.append(imagesposition);
-}
+            imagesposition.append(secontImagesDiv);
+            cintainer_main.append(imagesposition);
+          }
 
-function imagesConverter(event, image, oldimg) {
-    const WIDTH = 900;
-    const canvas = document.createElement('canvas');
-    let ratio = WIDTH / event.target.width;
+            function imagesConverter(event, image, oldimg) {
+                const WIDTH = 900;
+                const canvas = document.createElement('canvas');
+                let ratio = WIDTH / event.target.width;
               canvas.width = WIDTH;
               canvas.height = event.target.height * ratio ;
 

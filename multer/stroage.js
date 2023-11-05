@@ -20,7 +20,7 @@ const storage = new multer.diskStorage({
         "-" +
         current.getSeconds();
       let dateTime = cDate + "_" + cTime;
-      const fileName = `${dateTime}_${req.body.first_name}_${file.originalname}`;
+      const fileName = `${dateTime}_${file.originalname}`;
       cb(null, fileName);
     } catch (error) {
       console.log(error);

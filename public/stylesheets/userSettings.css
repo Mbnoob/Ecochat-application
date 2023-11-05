@@ -144,7 +144,11 @@ h6 {
     position: absolute;
     border-radius: 50%;
     opacity: 0;
-  }
+}
+
+.images-containner img{
+    width: 37%;
+}
 
  .overly:hover {
     opacity: 0.5;
@@ -189,6 +193,10 @@ h6 {
     width: 76px;
     border-radius: 50px;
     max-height: 75px;
+}
+
+#selsc-file-icon:hover{
+    background-color: #ffc107b5;
 }
 
 #Cancel-button{
