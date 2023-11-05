@@ -423,7 +423,6 @@ function emoji_containner_show() {
       socket.on('get_user_messagesAll', (data)=>{
         if (data.length>0) {
           data.forEach((e) => {
-            console.log(e)
             if (e.senderId === socket.id) {
               if (e.images != null) {
                 ImagesAppeend("images-right","images-user",`<h6>You:</h6>`, e.images,'sent-image' ,e.time); 
@@ -512,7 +511,6 @@ $(form).submit(function (event) {
             secontImagesDiv.insertAdjacentHTML("afterbegin", sendBy);
             let img = document.createElement("img");
             img.classList.add(image_classlist);
-            console.log(result)
             img.src = result;
             secontImagesDiv.appendChild(img);
             secontImagesDiv.insertAdjacentHTML("beforeend", `<p>${exactTime}</p>`);
